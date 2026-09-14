@@ -1,0 +1,10 @@
+FROM nodejs:20
+WORKDIR /app
+COPY package.json .
+COPY *.js .
+RUN npm install
+ENV "REDIS_URL"="redis://redis:6379" \
+    "MONGO_URL"="mongodb://mongodb:27017/users" \
+    "MONGO"="true"
+
+CMD ["node", "server.js"]
