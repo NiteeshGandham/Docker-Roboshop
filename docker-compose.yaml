@@ -71,11 +71,19 @@ services:
 
   frontend:
     build: ./frontend
-    image: frontend:1.0.0
+    image: frontend:1.0.0 #docker build -t frontend:1.0.0
     container_name: frontend
+    ports:
+    - "80:80"
     depends_on:
     - catalogue
     - cart
     - user
     - shipping
     - payment
+
+networks:
+  default:
+    driver: bridge
+    name: roboshop
+    external: false #if true, we need to create network manually  
