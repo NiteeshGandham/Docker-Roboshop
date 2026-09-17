@@ -1,34 +1,34 @@
 services:
   mongodb:
-    image: ./mongodb
-    build: mongodb:1.0.0
+    build: ./mongodb
+    image: mongodb:1.0.0
     container_name: mongodb
 
   redis:
-    image: ./redis
-    build: redis:1.0.0
+    build: ./redis
+    image: redis:1.0.0
     container_name: redis
 
   mysql:
-    image: ./mysql
-    build: mysql:1.0.0
+    build: ./mysql
+    image: mysql:1.0.0
     container_name: mysql
 
   rabbitmq:
-    image: ./rabbitmq
-    build: rabbitmq:1.0.0
+    build: ./rabbitmq
+    image: rabbitmq:1.0.0
     container_name: rabbitmq
 
   catalogue:
-    image: ./catalogue
-    build: catalogue:1.0.0
+    build: ./catalogue
+    image: catalogue:1.0.0
     container_name: catalogue
     depends_on:
     - mongodb
 
   user:
-    image: ./user
-    build: user:1.0.0
+    build: ./user
+    image: user:1.0.0
     container_name: user
     depends_on:
     - mongodb
@@ -36,24 +36,24 @@ services:
     - catalogue
 
   cart:
-    image: ./cart
-    build: cart:1.0.0
+    build: ./cart
+    image: cart:1.0.0
     container_name: cart
     depends_on:
     - redis
     - catalogue
 
   shipping:
-    image: ./shipping
-    build: shipping:1.0.0
+    build: ./shipping
+    image: shipping:1.0.0
     container_name: shipping
     depends_on:
     - mysql
     - cart
 
   payment:
-    image: ./payment
-    build: payment:1.0.0
+    build: ./payment
+    image: payment:1.0.0
     container_name: payment
     depends_on:
     - rabbitmq
@@ -70,8 +70,8 @@ services:
   
 
   frontend:
-    image: ./frontend
-    build: frontend:1.0.0
+    build: ./frontend
+    image: frontend:1.0.0
     container_name: frontend
     depends_on:
     - catalogue
