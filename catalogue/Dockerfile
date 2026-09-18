@@ -3,13 +3,13 @@ FROM node:20 as builder
 WORKDIR /app
 COPY package.json .
 COPY *.js .
+RUN npm install
 
 
 FROM node:20
 WORKDIR /app
 COPY --from=builder /app /app
-RUN npm install
 ENV MONGO=true
 ENV MONGO_URL="mongodb://mongodb:27017/catalogue"
-
-CMD ["node", "server.js"]
+ENTRYPOINT ["server.js"]
+CMD ["node"] 
