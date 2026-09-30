@@ -1,15 +1,21 @@
-FROM node:20 as builder
-#This will create and move there
+FROM node:20-alpine AS builder
+
 WORKDIR /app
+
 COPY package.json .
+
 COPY *.js .
-RUN npm install
+
+RUN npm install --omit=dev
 
 
-FROM node:20
+FROM node:20-alpine
+
 WORKDIR /app
+
 COPY --from=builder /app /app
-ENV MONGO=true
-ENV MONGO_URL="mongodb://mongodb:27017/catalogue"
-ENTRYPOINT ["server.js"]
-CMD ["node"] 
+
+ENV MONGO=true \
+    MONGO_URL="mongodb://mongodb:27017/catalogue"
+
+CMD ["node", "server.js"]
